@@ -1,0 +1,32 @@
+Variance:
+How spread out a dataset is
+-> sigma^2
+-> The average of the squared differences from the mean
+
+Ex: Find the variance of the data set (1,4,5,4,8)
+- Find the mean: (1+4+5+4+8)/5 = 22/5 = 4.4
+- Find the differences from the mean: (-3.4,-0.4,0.6,-0.4,3.6)
+- Find the squared differences: (11.56,0.16,0.36,0.16,12.96)
+- Find the average of the squared differences: 5.04
+
+The variance is 5.04
+
+Standard Deviation is the square root of the Variance
+-> Standard Deviation is (5.04)^0.5 = 2.24 (sigma)
+
+Standard deviation is used to identify outliers in the data set
+-> If data points fall outside of 1 standard deviation of the mean, they are considered to be unusual AKA outliers
+-> You can determine the extremeness of an outlier by seeing how many standard deviations a point is away from the mean
+
+------------------------------------------------------
+
+Population vs. Sample
+
+If you use complete set of data, do exactly the same as above
+
+If you sample your data (using subset of data):
+-> Then you must use sample variance, so you divide the squared variances by N-1 instead of N
+
+-> In previous example, we did: s^2 = (11.56 + 0.16 + 0.36 + 12.96)/5 = 5.04
+-> W. sample data, we do: s^2 = (11.56 + 0.16 + 0.36 + 12.96)/(5-1) = 6.3
+
