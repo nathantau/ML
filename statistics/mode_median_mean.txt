@@ -1,0 +1,5 @@
+Median Vs. Mean 
+
+Median is less susceptible to outliers than the Mean
+
+*Mode - value with the most common occurrence in a set 
