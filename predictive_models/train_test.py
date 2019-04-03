@@ -54,5 +54,25 @@ from sklearn.metrics import r2_score
 r2 = r2_score(testY,polynomial(testX))
 print(f'R2 Score: {r2}') # R2 Score: 0.5288523764023845
 
+# More Practice
 
+books_read = np.random.normal(100,30,2000)
+salary = np.random.normal(10,20,2000)
+
+trainX = books_read[:1600] # EVerything before 1600
+trainY = salary[:1600]
+
+testX = books_read[1600:]
+testY = books_read[1600:]
+
+# Polynomial Regression
+poly = np.polyfit(trainX,trainY,10)
+poly = np.poly1d(poly)
+
+print(f'Poly: {poly}')
+
+from sklearn.metrics import r2_score
+
+r2 = r2_score(trainY,poly(trainX))
+print(f'R2: {r2}') # 0.003400625390954315
 
