@@ -9,7 +9,7 @@ plt.scatter(page_speeds,purchase_amount)
 plt.show()
 
 # LEt's say we want to get a polynomial of best fit with degree of 4
-poly4 = np.polyfit(page_speeds,purchase_amount,10)
+poly4 = np.polyfit(page_speeds,purchase_amount,10) # Now using degree of 10
 print(poly4) # [  -2.99642872   36.89414652 -153.72793857  239.52918098  -77.24537323]
                         #         4         3         2
 print(np.poly1d(poly4)) # -2.996 x + 36.89 x - 153.7 x + 239.5 x - 77.25
