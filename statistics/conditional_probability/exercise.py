@@ -23,6 +23,7 @@ print(f'Total Purchases: {total_purchases}')
 probEBarF = float(purchases[30]/totals[30])
 print(probEBarF)
 
+# Condition that you bought something and you were 30
 probEF = float(purchases[30]/100000)
 print(probEF)
 
