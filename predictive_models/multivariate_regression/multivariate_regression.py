@@ -45,11 +45,11 @@ y = df['Price'] # TO predict
 #775 -0.089234 -0.914896  0.556279
 
 # Normalizes terms from -1 to 1
-X[['Mileage','Cylinder','Doors']] = scale.fit_transform(X[['Mileage','Cylinder','Doors']].as_matrix())
+X[['Mileage','Cylinder','Doors']] = scale.fit_transform(X)
 print(X)
 
 # Ordinarily Squares Model
-est = sm.OLS(y,X).fit()
+est = sm.OLS(y,X)
 print(est.summary())
 
 #                 coef    std err          t      P>|t|      [0.025      0.975]
@@ -63,20 +63,20 @@ print(est.summary())
 # Practice
 
 # Reads data from excel spreadsheet into dataframe
-df = pd.read_excel('predictive_models/cars.xls')
+#df = pd.read_excel('predictive_models/cars.xls')
 
 # Get features
-X = df[['Cruise','Sound','Leather']]
+#X = df[['Cruise','Sound','Leather']]
 
 # Get value to predict
-y = df['Price']
+#y = df['Price']
 
 # Scaling and fitting data
-X[['Cruise','Sound','Leather']] = scale.fit_transform(X[['Cruise','Sound','Leather']].as_matrix())
-print(X)
+#X[['Cruise','Sound','Leather']] = scale.fit_transform(X[['Cruise','Sound','Leather']].as_matrix())
+#print(X)
 
-est = sm.OLS(y,X).fit() # Fit method gives access to summary function
-print(est.summary())
+#est = sm.OLS(y,X).fit() # Fit method gives access to summary function
+#print(est.summary())
 
 #                 coef    std err          t      P>|t|      [0.025      0.975]
 #------------------------------------------------------------------------------
@@ -87,18 +87,22 @@ print(est.summary())
 # Cruise has the greatest impact on price
 
 # A bit more practice!
-df = pd.read_excel('predictive_models/cars.xls')
+#df = pd.read_excel('predictive_models/cars.xls')
 
 # Features, this time they are categorical for the sake of experimentation
-X = df[['Make','Model']]
+#X = df[['Make','Model']]
 
 # The value (price) that we want to predict
-y = df['Price']
+#y = df['Price']
 
 # Fitting the data and scaling it
-X[['Make','Model']] = scale.fit_transform(X[['Make','Model']].as_matrix()) # Not possible
+#X[['Make','Model']] = scale.fit_transform(X[['Make','Model']].as_matrix()) # Not possible
+
+# X['Cruise','Sound','Leather'] = scale.fit_transform(X['Cruise','Sound','Leather'])
+# print('hello')
+# print(X)
 
 # Creating model (value to predict, training data)
-est = sm.OLS(y,X).fit()
-print(est.summary())
+# est = sm.OLS(y,X).fit()
+# print(est.summary())
 
