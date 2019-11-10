@@ -5,6 +5,10 @@ def relu(x):
     if x < 0: return 0
     else: return x
 
+def relu_derivative(x):
+    if x < 0: return 0
+    else: return 1
+
 def sigmoid(x):
     return 1/(1 + math.exp(-x))
 
@@ -17,7 +21,9 @@ np.random.seed(42)
 
 input_vector = np.array([[2],[3]])
 
-# expected output = 23
+expected_output = 23
+
+learning_rate = 0.01
 
 # 3 layer neural network (1 input 1 hidden 1 output)
 # 2 nodes in each layer except for last
@@ -29,8 +35,9 @@ bias1_matrix = np.random.rand(2, 1)
 bias2_matrix = np.random.rand(1)
 
 print(hidden1_matrix)
-print(bias1_matrix)
+print(bias2_matrix)
 print(input_vector)
+print('output1_matrix', output1_matrix)
 
 for epoch in range(1):
 
@@ -51,10 +58,30 @@ for epoch in range(1):
 
     print(output1_matrix[0])
     print('multiplied by', new_input_vector)
-    # output = output1_matrix.dot(new_input_vector) + bias2_matrix[0]
-    output = output1_matrix[0].dot(new_input_vector) + bias2_matrix[0]
-    output = relu(output)[0]
 
-    print('output:' , output)
+    output = output1_matrix[0].dot(new_input_vector) + bias2_matrix[0]
+    actual_output = relu(output)[0]
+    print('your actual output is' , actual_output)
 
     # we have now finished completing forward pass, time to compute loss and grad. descent
+
+    loss = 0.5 * (expected_output - actual_output)**2
+    print('your loss is', loss)
+
+    # now, time to do back prop
+
+    output1_matrix_grad = np.random.rand(1,2)
+    bias2_matrix_grad = np.random.rand(1)
+
+    output1_matrix_grad[0][0] = loss * relu_derivative(output) * output1_matrix[0][0]
+    output1_matrix_grad[0][1] = loss * relu_derivative(output) * output1_matrix[0][1]
+    bias2_matrix_grad = loss * relu_derivative(output)
+
+
+    print('gradient for output1_matrix', output1_matrix_grad)
+    print('gradient for bias2_matrix', bias2_matrix_grad)
+
+    # grad for output layer computed, time for hidden layer!
+
+    
+
