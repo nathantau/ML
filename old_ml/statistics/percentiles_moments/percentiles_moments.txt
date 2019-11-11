@@ -1,4 +1,0 @@
-Percenties:
-In a data set, the point at which the value ${percentile} % of values are less than that value
-
-ex: The 99th percentile of household incomes is the value of the income which is greater than 99% of all the incomes in numerical order

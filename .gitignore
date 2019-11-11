@@ -2,4 +2,5 @@ pandas/__pycache__
 tensorflow_stuff/__pycache__
 tensorflow_stuff/.vs
 tensorflow_stuff/.vscode
-.vscode/launch.json
+.vscode/
+desktop.ini
