@@ -20,7 +20,7 @@ class LogisticRegressionModel():
         elif y == 1:
             return -1 * math.log(1 - hypothesis)
     
-
+    
 
 
 l = LogisticRegressionModel(3)
