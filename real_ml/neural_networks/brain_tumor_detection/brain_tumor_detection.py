@@ -23,8 +23,8 @@ print('first example--------------------------------------------')
 
 sample = training_data[0]
 img = sample[0]
-label = sample[1]
-print('label',label)
+target = sample[1]
+print('target',target)
 plt.imshow(img)
 plt.show()
 
@@ -48,8 +48,8 @@ print('validation size', len(validation_set))
 
 # Define optimizer and loss function
 
-optimizer = optim.Adam(net.parameters(), lr=0.00001)
-loss_function = nn.CrossEntropyLoss()
+optimizer = optim.SGD(net.parameters(), lr=0.001)
+loss_function = nn.BCELoss()
 
 PATH = 'net.pth'
 NUM_EPOCHS = 200
@@ -59,6 +59,8 @@ print('now everybody in the 202, wave ur hands up and down cuz fat joe is thru')
 print('Training Time------------------------------------------------')
 print('')
 
+INVESTIGATION_MODE = False
+
 for epoch in range(NUM_EPOCHS):
 
     np.random.shuffle(training_set)
@@ -66,33 +68,34 @@ for epoch in range(NUM_EPOCHS):
 
     num_correct = 0
     running_loss = 0
-
+    net = net.train()
     for i in range(len(training_set)):
 
         sample = training_set[i]
-        label = sample[1]
 
         img = sample[0]
-        img = torch.from_numpy(img)
+        target = sample[1].float().view(1, NUM_CLASSES)
 
-        print('label', torch.tensor(label).view(-1, NUM_CLASSES))
-        plt.imshow(img)
-        plt.show()
+        img = torch.from_numpy(img)
+        
+        # if you ever want to see the images, uncomment the following lines
+        if INVESTIGATION_MODE == True:
+            print('target', target)
+            plt.imshow(img)
+            plt.show()
 
         img = img.view(1,1,128,128)
 
-        target = torch.tensor(label).view(-1, NUM_CLASSES)
-        output = net(img).view(-1, NUM_CLASSES)
+        output = net(img).view(1, NUM_CLASSES)
 
-        print('output', output)
+        # print('target', target)
+        # print('output', output)
 
-        loss = loss_function(target, output)
+        loss = loss_function(output, target)
         loss.backward()
         running_loss += loss.item()
 
-        if label == 1 and output.item() >= 0.5:
-            num_correct += 1
-        elif label == 0 and output.item() < 0.5:
+        if torch.argmax(target) == torch.argmax(output):
             num_correct += 1
 
         # Then we take a step with our optimizer
@@ -103,32 +106,27 @@ for epoch in range(NUM_EPOCHS):
 
     print('EPOCH:', epoch, 'loss:', running_loss, 'accuracy:', num_correct/len(training_set))
 
+    net = net.eval()
     num_correct = 0
     running_loss = 0
     for i in range(len(validation_set)):
 
         with torch.no_grad():
-            sample = validation_set[i]
-            img = sample[0]
-            label = sample[1]
-            img = torch.from_numpy(img)
 
-            # print(label)
-            # plt.imshow(img)
-            # plt.show()
+            sample = validation_set[i]
+
+            img = sample[0]
+            img = torch.from_numpy(img)
+            target = sample[1].float().view(1, NUM_CLASSES)
 
             img = img.view(1,1,128,128)
 
-            target = torch.tensor(label).view(-1,1).float()
             output = net(img)
-
-            loss = loss_function(target, output)
+            loss = loss_function(output, target)
             running_loss += loss.item()
 
-            if label == 1 and output.item() >= 0.5:
-                num_correct += 1
-            elif label == 0 and output.item() < 0.5:
+            if torch.argmax(target) == torch.argmax(output):
                 num_correct += 1
 
-    print('EPOCH:', epoch,'loss:', running_loss, 'accuracy:', num_correct/len(training_set), '<-Validation Set')
+    print('EPOCH:', epoch,'loss:', running_loss, 'accuracy:', num_correct/len(validation_set), '<-Validation Set')
     print('----------------------------------------------------------------------------------------------------')
